@@ -27,7 +27,7 @@ public class EmployeeController {
 	
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Employee> getUser(@PathVariable Long id) {
-		System.out.println("checkget");
+		
 		try{
 			Employee e = repo.findById(id).get();
 		return new ResponseEntity<Employee>(e, HttpStatus.FOUND);
@@ -37,14 +37,14 @@ public class EmployeeController {
 	}
 	@GetMapping("/getall")
 	public List<Employee> getAll(){
-		System.out.println("checkgetall");
+		
 		
 		return repo.findAll();				
 	}
 	
 	@PostMapping("/createemployee")
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee emp){
-		System.out.println("check");
+		
 		repo.save(emp);
 		return new ResponseEntity<Employee>(HttpStatus.CREATED);
 	}
