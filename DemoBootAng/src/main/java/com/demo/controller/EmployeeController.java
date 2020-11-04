@@ -20,14 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demo.model.Employee;
 import com.demo.repo.EmpRepository;
 
-@RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/emp/v1")
+@RestController
+
+@RequestMapping("/emp/v1/employees")
 public class EmployeeController {
 	@Autowired
 	EmpRepository repo;
 	
-	@GetMapping("/get/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Employee> getUser(@PathVariable Long id) {
 		
 		try{
@@ -37,20 +38,20 @@ public class EmployeeController {
 			return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@GetMapping("/getall")
+	@GetMapping
 	public List<Employee> getAll(){
 		
 		
 		return repo.findAll();				
 	}
 	
-	@PostMapping("/createemployee")
+	@PostMapping
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee emp){
 		
 		repo.save(emp);
 		return new ResponseEntity<Employee>(HttpStatus.CREATED);
 	}
-	@DeleteMapping("/deleteemployee/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Employee> deleteEmployee(@PathVariable Long id){
 		try {
 			repo.deleteById(id);
@@ -59,13 +60,17 @@ public class EmployeeController {
 			return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@PutMapping("/updateemployee/{id}")
-	public ResponseEntity<Employee> update(@RequestBody Employee emp, @PathVariable Long id) 
+	@PutMapping("/{id}")
+	public ResponseEntity<Employee> update(@RequestBody Employee employeeDetail, @PathVariable Long id) 
 	{
 	    try {
 	        Employee existEmployee = repo.findById(id).get();
-	        repo.save(emp);
-	        return new ResponseEntity<Employee>(HttpStatus.OK);
+	        existEmployee.setEmailId(employeeDetail.getEmailId());
+	        existEmployee.setLastName(employeeDetail.getLastName());
+	        existEmployee.setFirstName(employeeDetail.getFirstName());
+			final Employee updatedEmployee = repo.save(existEmployee);
+	       
+	        return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.OK);
 	    } catch (NoSuchElementException e) {
 	        return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
 	    }
