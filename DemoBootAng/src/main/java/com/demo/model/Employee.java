@@ -1,23 +1,19 @@
 package com.demo.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "Employee")
+@Document
 public class Employee {
+	
+	@Transient
+    public static final String SEQUENCE_NAME = "users_sequence";	
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Column
 	private String firstName;
-	@Column
 	private String lastName;
-	@Column
 	private String emailId;
 	public Long getId() {
 		return id;

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.model.Employee;
 import com.demo.repo.EmpRepository;
+import com.demo.seviceImpl.SequenceGeneratorService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -27,6 +28,9 @@ import com.demo.repo.EmpRepository;
 public class EmployeeController {
 	@Autowired
 	EmpRepository repo;
+	
+	@Autowired
+	SequenceGeneratorService sequenceGenerator;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Employee> getUser(@PathVariable Long id) {
@@ -48,6 +52,7 @@ public class EmployeeController {
 	@PostMapping
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee emp){
 		
+		emp.setId(sequenceGenerator.generateSequence(emp.SEQUENCE_NAME));
 		repo.save(emp);
 		return new ResponseEntity<Employee>(HttpStatus.CREATED);
 	}
