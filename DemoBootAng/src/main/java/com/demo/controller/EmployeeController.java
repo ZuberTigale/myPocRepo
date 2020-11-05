@@ -37,7 +37,10 @@ public class EmployeeController {
 		
 		try{
 			Employee e = repo.findById(id).get();
-		return new ResponseEntity<Employee>(e, HttpStatus.FOUND);
+	//	return new ResponseEntity<Employee>(e, HttpStatus.FOUND);
+		return ResponseEntity.ok().body(e);
+
+
 		}catch (Exception e) {
 			return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
 		}
