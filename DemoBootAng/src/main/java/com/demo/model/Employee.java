@@ -1,7 +1,13 @@
 package com.demo.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -12,14 +18,47 @@ public class Employee {
 	
 	@Id
 	private Long id;
+	
+	@NotBlank
+	private String username;
+	
 	private String firstName;
 	private String lastName;
 	private String emailId;
+	
+	@NotBlank
+	private String password;
+	
+	public Employee() {}
+	
+	public Employee(Long id, String username, String firstName, String lastName, String emailId, String password) {
+		
+		this.id = id;
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailId = emailId;
+		this.password = password;
+	}
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getFirstName() {
 		return firstName;
