@@ -41,6 +41,7 @@ public class EmployeeService implements UserDetailsService {
 		Employee newUser=new Employee();
 		
 		newUser.setId(e.getId());
+		newUser.setUsername(e.getUsername());
 		newUser.setFirstName(e.getFirstName());
 		newUser.setLastName(e.getLastName());
 		newUser.setEmailId(e.getEmailId());

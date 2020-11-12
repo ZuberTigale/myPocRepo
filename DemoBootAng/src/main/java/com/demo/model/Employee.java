@@ -19,7 +19,7 @@ public class Employee {
 	@Id
 	private Long id;
 	
-	@NotBlank
+	
 	private String username;
 	
 	private String firstName;
