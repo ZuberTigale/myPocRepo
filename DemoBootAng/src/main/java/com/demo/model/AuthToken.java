@@ -8,9 +8,9 @@ public class AuthToken {
 
 	    }
 
-	    public AuthToken(String token, String username){
+	    public AuthToken(String token){
 	        this.token = token;
-	        this.username = username;
+	  //      this.username = username;
 	    }
 
 		public String getToken() {

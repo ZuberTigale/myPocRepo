@@ -10,7 +10,7 @@ import com.demo.model.Employee;
 @Repository
 public interface EmpRepository extends MongoRepository<Employee, Long> {
 	
-	Employee findByUsername(String username);
+	Optional<Employee> findByUsername(String username);
 
 	  Boolean existsByUsername(String username);
 

@@ -1,5 +1,6 @@
 package com.demo.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Employee {
+public class Employee implements Serializable {
 	
 	@Transient
     public static final String SEQUENCE_NAME = "users_sequence";	
@@ -25,6 +26,8 @@ public class Employee {
 	private String firstName;
 	private String lastName;
 	private String emailId;
+	 @DBRef
+	  private Set<Role> roles = new HashSet<>();
 	
 	@NotBlank
 	private String password;
@@ -78,6 +81,14 @@ public class Employee {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+		
 
 }
