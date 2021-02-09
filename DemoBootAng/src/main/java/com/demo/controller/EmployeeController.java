@@ -24,7 +24,7 @@ import com.demo.service.EmployeeService;
 import com.demo.seviceImpl.SequenceGeneratorService;
 
 @RestController
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/emp/v1/employees")
 public class EmployeeController {
 	@Autowired

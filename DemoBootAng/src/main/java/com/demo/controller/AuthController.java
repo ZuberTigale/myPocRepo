@@ -1,7 +1,9 @@
 package com.demo.controller;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,7 +66,12 @@ public class AuthController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtTokenUtil.generateToken(authentication);
-        return ResponseEntity.ok(new AuthToken(token));
+        Employee e=repo.getByUsername(loginUser.getUsername());
+        Set<Role> s = e.getRoles();
+        Set role = s.stream().map(p->p.getName()).collect(Collectors.toSet());
+        System.out.println(role);
+
+        return ResponseEntity.ok(new AuthToken(token, loginUser.getUsername(), role));
     //    return ResponseEntity.ok(new AuthToken(token, loginUser.getUsername()));
 	}
 	

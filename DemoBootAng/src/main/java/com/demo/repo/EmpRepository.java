@@ -13,6 +13,8 @@ public interface EmpRepository extends MongoRepository<Employee, Long> {
 	Optional<Employee> findByUsername(String username);
 
 	  Boolean existsByUsername(String username);
+	  
+	  Employee getByUsername(String username);
 
 	  Boolean existsByEmailId(String emailId);
 	

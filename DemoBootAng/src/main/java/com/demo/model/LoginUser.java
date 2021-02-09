@@ -3,6 +3,15 @@ package com.demo.model;
 public class LoginUser {
 	  private String username;
 	    private String password;
+	    private String authority;
+
+	    public String getAuthority() {
+			return authority;
+		}
+
+		public void setAuthority(String authority) {
+			this.authority = authority;
+		}
 
 	    public String getUsername() {
 	        return username;
